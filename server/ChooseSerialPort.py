@@ -15,3 +15,7 @@ def choose_port():
         serial_port_choice = int(input('Please make your choice : '))
         print('You chose port ' + str(list_serial_ports[serial_port_choice]))
         return list_serial_ports[serial_port_choice]
+
+def set_port():
+    ser = serial.Serial(serial_ports()[0], 9600, timeout=1)
+    print("Port is set")
