@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <h2>Welcome to Paul's Robot</h2>
+        <p>Below is the current state of the robot</p>
+        <p>The robot is currently {{ direction }} at the set speed of {{ speed }}</p>
+        <p>note the robot speed is set between values of 0-255</p>
+        <button onclick="httpGetAsync(http://{{ ip }}:{{ port }}/forward);">FORWARD</button>
+
+        <script>
+            //Praise be to the StackOverflow gods "https://stackoverflow.com/questions/247483/http-get-request-in-javascript"
+            function httpGetAsync(theUrl, callback)
+            {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                        callback(xmlHttp.responseText);
+                }
+                xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+                xmlHttp.send(null);
+            }
+            //Praise has been given
+        </script>
+    </body>
+</html>
