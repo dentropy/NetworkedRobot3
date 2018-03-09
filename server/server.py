@@ -33,8 +33,9 @@ print(ip)
 #set defult direction and speed of robot of the robot
 direction = 'stop'
 speed = 0
-#The flask application
 
+def set_direction(tmp_direction):
+    direction = tmp_direction
 
 #Set the serial port, been getting errors about that
 ser = serial.Serial(serial_ports()[0], 9600, timeout=1)
@@ -50,23 +51,29 @@ def set_serial_port():
 
 @app.route('/forward')
 def forward():
-   return 'forward'
+    set_direction('forward')
+    return direction
 
 @app.route('/backward')
 def backward():
-   return 'backward'
+    direction = 'backward'
+    return direction
 
 @app.route('/left')
 def left():
-   return 'left'
+    direction = 'left'
+    return direction
 
 @app.route('/right')
 def right():
-   return 'right'
+    direction = 'right'
+    print(direction)
+    return direction
 
 @app.route('/stop')
 def stop():
-   return 'stop'
+    direction = 'stop'
+    return direction
 
 @app.route('/led_on')
 def led_on():
@@ -84,8 +91,9 @@ def jquery():
 
 @app.route('/robot_state')
 def robot_state():
-     return "The robot is going " + str(direction) + "At a speed of " + str(speed)
-     
+    print(direction)
+    return "The robot is going " + str(direction) + "At a speed of " + str(speed)
+ 
 if __name__ == '__main__':
-    app.debug = True
+    #app.debug = True
     app.run(host= '0.0.0.0')

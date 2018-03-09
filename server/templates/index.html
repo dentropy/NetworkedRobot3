@@ -6,6 +6,12 @@
             function update_robot_status(){
                 $.get('http://{{ ip }}:{{ port }}/robot_state', function(data, status){
                     console.log(data);
+                    document.getElementById('robot_state').innerHTML = data;
+                });
+            }
+            function http_get(url){
+                $.get(url, function(data, status){
+                            console.log(data)
                 });
             }
             setInterval(function(){
@@ -15,7 +21,8 @@
                     document.getElementById('robot_state').innerHTML = data;
                     console.log(data)
                 });
-            }, 2000) /* time in milliseconds (ie 2 seconds)*/
+            }, 2000) // time in milliseconds (ie 2 seconds)
+            /*
             $(document).ready(function(){
                 $("button").click(function(){
                         $.get("http://{{ ip }}:{{ port }}/robot_state", function(data, status){
@@ -23,6 +30,7 @@
                         });
                     });
             });
+            */
             </script>
         </head>
         <h2>Welcome to Paul's Robot</h2>
@@ -30,7 +38,7 @@
         <p>The robot is currently {{ direction }} at the set speed of {{ speed }}</p>
         <p>note the robot speed is set between values of 0-255</p>
         <p id = "robot_state" >The State of the Robot goes here</p>
-        <button onclick="http_get('http://{{ ip }}:{{ port }}/right');">RIGHT</button><br>
+        <button onclick="update_robot_status();">Check Robot State</button><br>
         <br><br>
         <button onclick="http_get('http://{{ ip }}:{{ port }}/led_on');">LED ON</button>
         <button onclick="http_get('http://{{ ip }}:{{ port }}/led_off');">LED OFF</button>
