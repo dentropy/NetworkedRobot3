@@ -82,6 +82,10 @@ def led_off():
 def jquery():
      return render_template('./jquery.min.js')
 
+@app.route('/robot_state')
+def robot_state():
+     return "The robot is going " + str(direction) + "At a speed of " + str(speed)
+     
 if __name__ == '__main__':
-    #app.debug = True
+    app.debug = True
     app.run(host= '0.0.0.0')

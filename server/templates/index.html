@@ -3,19 +3,41 @@
         <head>
             <script src="http://{{ ip }}:{{ port }}/jquery.js"></script>
             <script>
-            function http_get(url_for){
-                $.get(url_for, function(data, status){
-                    alert("Data: " + data + "\nStatus: " + status);
+            function update_robot_status(){
+                $.get('http://{{ ip }}:{{ port }}/robot_state', function(data, status){
+                    console.log(data);
                 });
             }
+            setInterval(function(){
+                //$('#my_div').load('/path/to/server/source');
+                $.get('http://{{ ip }}:{{ port }}/robot_state', function(data) {
+                    // Now that we've completed the request schedule the next one.
+                    document.getElementById('robot_state').innerHTML = data;
+                    console.log(data)
+                });
+            }, 2000) /* time in milliseconds (ie 2 seconds)*/
+            $(document).ready(function(){
+                $("button").click(function(){
+                        $.get("http://{{ ip }}:{{ port }}/robot_state", function(data, status){
+                            alert("Data: " + data + "\nStatus: " + status);
+                        });
+                    });
+            });
             </script>
         </head>
         <h2>Welcome to Paul's Robot</h2>
         <p>Below is the current state of the robot</p>
         <p>The robot is currently {{ direction }} at the set speed of {{ speed }}</p>
         <p>note the robot speed is set between values of 0-255</p>
+        <p id = "robot_state" >The State of the Robot goes here</p>
+        <button onclick="http_get('http://{{ ip }}:{{ port }}/right');">RIGHT</button><br>
+        <br><br>
         <button onclick="http_get('http://{{ ip }}:{{ port }}/led_on');">LED ON</button>
         <button onclick="http_get('http://{{ ip }}:{{ port }}/led_off');">LED OFF</button>
-        <button onclick="http_get('http://{{ ip }}:{{ port }}/forward');">FORWARD</button>
+        <br><br>
+        <button onclick="http_get('http://{{ ip }}:{{ port }}/forward');">FORWARD</button><br>
+        <button onclick="http_get('http://{{ ip }}:{{ port }}/backward');">BACKWARD</button><br>
+        <button onclick="http_get('http://{{ ip }}:{{ port }}/left');">LEFT</button><br>
+        <button onclick="http_get('http://{{ ip }}:{{ port }}/right');">RIGHT</button><br>
     </body>
 </html>
