@@ -51,27 +51,31 @@ def set_serial_port():
 
 @app.route('/forward')
 def forward():
-    set_direction('forward')
+    global direction
+    direction = 'forward'
     return direction
 
 @app.route('/backward')
 def backward():
+    global direction
     direction = 'backward'
     return direction
 
 @app.route('/left')
 def left():
+    global direction
     direction = 'left'
     return direction
 
 @app.route('/right')
 def right():
+    global direction
     direction = 'right'
-    print(direction)
     return direction
 
 @app.route('/stop')
 def stop():
+    global direction
     direction = 'stop'
     return direction
 
